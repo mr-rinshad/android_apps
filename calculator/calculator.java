@@ -1,69 +1,60 @@
 package com.example.calculator;
 
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText num1, num2;
-    Button add, subtract, multiply, divide;
-    TextView result;
+    EditText display;
+
+    double value1 = 0, value2 = 0;
+    String operator = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        num1 = findViewById(R.id.num1);
-        num2 = findViewById(R.id.num2);
+        display = findViewById(R.id.etDisplay);
 
-        add = findViewById(R.id.add);
-        subtract = findViewById(R.id.subtract);
-        multiply = findViewById(R.id.multiply);
-        divide = findViewById(R.id.divide);
+        int[] nums = {R.id.b0,R.id.b1,R.id.b2,R.id.b3,R.id.b4,
+                R.id.b5,R.id.b6,R.id.b7,R.id.b8,R.id.b9,R.id.bDot};
 
-        result = findViewById(R.id.result);
-
-        add.setOnClickListener(v -> calculate('+'));
-        subtract.setOnClickListener(v -> calculate('-'));
-        multiply.setOnClickListener(v -> calculate('*'));
-        divide.setOnClickListener(v -> calculate('/'));
-    }
-
-    private void calculate(char operator) {
-
-        double a = Double.parseDouble(num1.getText().toString());
-        double b = Double.parseDouble(num2.getText().toString());
-        double answer = 0;
-
-        switch (operator) {
-            case '+':
-                answer = a + b;
-                break;
-
-            case '-':
-                answer = a - b;
-                break;
-
-            case '*':
-                answer = a * b;
-                break;
-
-            case '/':
-                if (b != 0) {
-                    answer = a / b;
-                } else {
-                    result.setText("Cannot divide by zero");
-                    return;
-                }
-                break;
+        for(int id: nums){
+            Button b = findViewById(id);
+            b.setOnClickListener(v ->
+                    display.append(((Button)v).getText().toString()));
         }
 
-        result.setText("Result: " + answer);
+        findViewById(R.id.bClear).setOnClickListener(v ->
+                display.setText(""));
+
+        findViewById(R.id.bAdd).setOnClickListener(v -> setOperator("+"));
+        findViewById(R.id.bSub).setOnClickListener(v -> setOperator("-"));
+        findViewById(R.id.bMul).setOnClickListener(v -> setOperator("*"));
+        findViewById(R.id.bDiv).setOnClickListener(v -> setOperator("/"));
+
+        findViewById(R.id.bEqual).setOnClickListener(v -> {
+
+            value2 = Double.parseDouble(display.getText().toString());
+            double result = 0;
+
+            switch(operator){
+                case "+": result = value1 + value2; break;
+                case "-": result = value1 - value2; break;
+                case "*": result = value1 * value2; break;
+                case "/": result = value1 / value2; break;
+            }
+
+            display.setText(String.valueOf(result));
+        });
+    }
+
+    private void setOperator(String op){
+        value1 = Double.parseDouble(display.getText().toString());
+        operator = op;
+        display.setText("");
     }
 }
