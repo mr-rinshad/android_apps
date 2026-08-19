@@ -1,5 +1,3 @@
-package com.example.myapp;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -17,6 +15,7 @@ public class RegistrationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_registration);
 
         name = findViewById(R.id.name);
@@ -30,11 +29,9 @@ public class RegistrationActivity extends AppCompatActivity {
             String e = email.getText().toString();
             String p = password.getText().toString();
 
-            // Create SharedPreferences
-            SharedPreferences sp = getSharedPreferences(
-                    "UserData", MODE_PRIVATE);
+            SharedPreferences sp =
+                    getSharedPreferences("UserData", MODE_PRIVATE);
 
-            // Store registration details
             SharedPreferences.Editor editor = sp.edit();
 
             editor.putString("name", n);
@@ -47,7 +44,6 @@ public class RegistrationActivity extends AppCompatActivity {
                     "Registration Successful",
                     Toast.LENGTH_SHORT).show();
 
-            // Intent to LoginActivity
             Intent intent = new Intent(
                     RegistrationActivity.this,
                     LoginActivity.class);
@@ -56,3 +52,4 @@ public class RegistrationActivity extends AppCompatActivity {
         });
     }
 }
+            
