@@ -1,3 +1,5 @@
+package com.example.registerpage;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
