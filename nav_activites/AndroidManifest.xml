@@ -1,25 +1,38 @@
-<application
-    android:allowBackup="true"
-    android:label="Option Menu App"
-    android:theme="@style/Theme.OptionMenu">
+<?xml version="1.0" encoding="utf-8"?>
 
-    <activity
-        android:name=".AboutActivity"
-        android:exported="false" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <activity
-        android:name=".HomeActivity"
-        android:exported="false" />
+    <application
+        android:allowBackup="true"
+        android:label="Option Menu App"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.OptionMenuApp">
 
-    <activity
-        android:name=".MainActivity"
-        android:exported="true">
+        <!-- About Activity -->
+        <activity
+            android:name=".AboutActivity"
+            android:exported="false" />
 
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+        <!-- Home Activity -->
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
 
-    </activity>
+        <!-- Main Activity -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
 
-</application>
+            <intent-filter>
+
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+
+            </intent-filter>
+
+        </activity>
+
+    </application>
+
+</manifest>
