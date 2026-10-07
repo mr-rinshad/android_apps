@@ -1,41 +1,35 @@
-package com.example.spinnerapp;
+package com.example.arrayadapterapp;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.ListView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    String[] subjects = {"Select Subject", "Java", "Python", "Android", "Database", "Networking"};
+    String[] subjects = {"Java", "Python", "Android", "Database", "Networking"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Spinner spinner = findViewById(R.id.spinnerSubject);
-        TextView txtResult = findViewById(R.id.txtResult);
+        ListView listView = findViewById(R.id.listView);
 
-        // Setup Adapter
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, subjects);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        // Create ArrayAdapter
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, subjects);
 
-        // Handle Selection
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position > 0) {
-                    txtResult.setText("You selected: " + subjects[position]);
-                }
-            }
+        // Set adapter to ListView
+        listView.setAdapter(adapter);
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+        // Toast when item is clicked
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            Toast.makeText(this,
+                    "You selected: " + subjects[position],
+                    Toast.LENGTH_SHORT).show();
         });
     }
 }
